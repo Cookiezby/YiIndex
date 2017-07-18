@@ -49,6 +49,8 @@ class YiIndicateView: UIView {
         super.init(frame: frame)
         label.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
         addSubview(label)
+        layer.cornerRadius = 5
+        backgroundColor = UIColor(white: 0.0, alpha: 0.5)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -80,21 +82,22 @@ class IndicateView: UIView {
         label.frame =  CGRect(x: -5, y: 0, width: frame.width, height: frame.height)
     }
     
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
 protocol YiIndexDelegate {
-    var indicateView: IndicateView { get }
     func indexChanged(newIndex: Int)
+    
+    var indicateViewList: [YiIndicateView] { get }
+    func updateIndex(_ index: Int, at level: Int)
 }
 
 class YiIndexView: UIView {
     
     var sideBlocks = [YiBlock]()
-    var curIndex: Int = 0
+    var curIndex: Int = -1
     var curIndexList: [Int] = [0, 0, 0, 0]
     var delegate: YiIndexDelegate!
     
@@ -109,10 +112,14 @@ class YiIndexView: UIView {
     let topPadding: CGFloat!
     let indexHeight: CGFloat = 26 * BLOCK_SIZE
     
+    // check for long press
+    var longPressTimeInterval: CGFloat = 1.5
+    
     override init(frame: CGRect) {
         topPadding = (frame.height - indexHeight) / 2
         super.init(frame: frame)
         initBlocks()
+       
     }
     
     func initBlocks() {
@@ -142,16 +149,18 @@ class YiIndexView: UIView {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.delegate.indicateView.isHidden = true
+        
     }
     
     func updateIndex(_ index: Int) {
         if (index != curIndex && index <= 26 && index >= 1) {
-            self.delegate.indicateView.isHidden = false
             curIndex =  index
             forceFeedBack.selectionChanged()
             delegate.indexChanged(newIndex: index)
         }
     }
     
+    func changeLevel() {
+        print("changeLevel")
+    }
 }

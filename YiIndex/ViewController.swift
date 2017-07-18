@@ -36,7 +36,7 @@ class CustomSectionHeader: UIView {
     }
 }
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, YiIndexDelegate{
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -51,10 +51,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return strList
     }()
     
-    var indicateView: IndicateView = {
-        let view = IndicateView(frame: CGRect(x: 0, y: 100, width: 60, height: 50))
-        view.isHidden = true
-        return view
+    var indicateViewList: [YiIndicateView] = {
+        var list = [YiIndicateView]()
+        for i in 0...2 {
+            let view = YiIndicateView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            list.append(view)
+        }
+        return list
     }()
     
     var sideBar: YiIndexView!
@@ -70,7 +73,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         sideBar = YiIndexView(frame: CGRect(x: view.frame.width - 15.0, y: 0, width: 15, height: view.frame.height))
         sideBar.delegate = self
         view.addSubview(sideBar)
-        view.addSubview(indicateView)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -78,12 +81,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+   
+}
+
+extension ViewController: YiIndexDelegate {
+    
     func indexChanged(newIndex: Int) {
-        indicateView.label.text = String(UnicodeScalar(UInt8(64 + newIndex)))
+        let text = String(UnicodeScalar(UInt8(64 + newIndex)))
         tableView.scrollToRow(at: IndexPath(row: 0, section: newIndex - 1), at: .top, animated: false)
-        let y = sideBar.sideBlocks[newIndex - 1].frame.origin.y
-        indicateView.frame = CGRect(x: view.frame.width - 100, y: y + 7.5 - indicateView.frame.height / 2, width: indicateView.frame.width, height: indicateView.frame.height)
     }
+    
+    func updateIndex(_ index: Int, at level: Int) {
+        
+    }
+    
 }
 
 extension ViewController {
