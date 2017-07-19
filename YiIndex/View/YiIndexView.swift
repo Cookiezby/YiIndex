@@ -27,7 +27,7 @@ class YiBlock: UIView {
     }
     
     override func layoutSubviews() {
-        label.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        label.frame = self.bounds
         super.layoutSubviews()
     }
     
@@ -53,6 +53,11 @@ class YiIndicateView: UIImageView {
         addSubview(label)
         image = UIImage(named: "circleBG")
         contentMode = .scaleToFill
+    }
+    
+    override func layoutSubviews() {
+        label.frame = self.bounds
+        super.layoutSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -86,12 +91,12 @@ class YiIndexView: UIView {
     
     // check for long press
     var longPressTimeInterval: CGFloat = 1.5
+    var checkLongPress: DispatchWorkItem?
     
     override init(frame: CGRect) {
         topPadding = (frame.height - indexHeight) / 2
         super.init(frame: frame)
         initBlocks()
-       
     }
     
     func initBlocks() {
@@ -120,6 +125,10 @@ class YiIndexView: UIView {
         updateIndex(index)
     }
     
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        delegate.curIndexView.isHidden = true
+    }
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         delegate.curIndexView.isHidden = true
     }
@@ -129,7 +138,22 @@ class YiIndexView: UIView {
             curIndex =  index
             forceFeedBack.selectionChanged()
             delegate.indexChanged(newIndex: index)
+            
+            if checkLongPress != nil {
+                if !checkLongPress!.isCancelled {
+                    checkLongPress!.cancel()
+                }
+            }
+            checkLongPress = DispatchWorkItem { [weak self] _ in
+                self?.confimCurIndex(index)
+            }
+            let when = DispatchTime.now()  + TimeInterval(longPressTimeInterval)
+            DispatchQueue.main.asyncAfter(deadline: when, execute: checkLongPress!)
         }
+    }
+    
+    func confimCurIndex(_ index: Int) {
+        delegate.indexConfirmed(index: index)
     }
 
 }

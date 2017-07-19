@@ -73,6 +73,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         sideBar.delegate = self
         view.addSubview(sideBar)
         
+        
         view.addSubview(curIndexView)
         curIndexView.center = view.center
         
