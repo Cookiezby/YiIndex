@@ -51,13 +51,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return strList
     }()
     
-    var indicateViewList: [YiIndicateView] = {
-        var list = [YiIndicateView]()
-        for i in 0...2 {
-            let view = YiIndicateView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            list.append(view)
-        }
-        return list
+    var confirmedIndexList = [YiIndicateView]()
+    
+    var curIndexView: YiIndicateView = {
+        let view = YiIndicateView(frame: CGRect(x: 0, y: 0, width: 100 , height: 100))
+        view.isHidden = true
+        return view
     }()
     
     var sideBar: YiIndexView!
@@ -74,29 +73,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         sideBar.delegate = self
         view.addSubview(sideBar)
         
+        view.addSubview(curIndexView)
+        curIndexView.center = view.center
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    
-   
 }
 
 extension ViewController: YiIndexDelegate {
     
     func indexChanged(newIndex: Int) {
-        let text = String(UnicodeScalar(UInt8(64 + newIndex)))
+        curIndexView.isHidden = false
+        curIndexView.label.text = String(UnicodeScalar(UInt8(64 + newIndex)))
         tableView.scrollToRow(at: IndexPath(row: 0, section: newIndex - 1), at: .top, animated: false)
     }
     
-    func updateIndex(_ index: Int, at level: Int) {
+    func indexConfirmed(index: Int) {
         
     }
-    
 }
 
 extension ViewController {

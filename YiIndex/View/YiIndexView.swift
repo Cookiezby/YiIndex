@@ -37,7 +37,7 @@ class YiBlock: UIView {
     
 }
 
-class YiIndicateView: UIView {
+class YiIndicateView: UIImageView {
     
     let label: UILabel = {
         let label = UILabel()
@@ -48,38 +48,11 @@ class YiIndicateView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         label.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
-        addSubview(label)
-        layer.cornerRadius = 5
-        backgroundColor = UIColor(white: 0.0, alpha: 0.5)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-
-class IndicateView: UIView {
-    
-    let imageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "blockBG"))
-        return imageView
-    }()
-    
-    let label: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor.white
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 35)
-        return label
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        addSubview(imageView)
-        imageView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        label.font = UIFont.systemFont(ofSize: 60)
         addSubview(label)
-        label.frame =  CGRect(x: -5, y: 0, width: frame.width, height: frame.height)
+        image = UIImage(named: "circleBG")
+        contentMode = .scaleToFill
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -88,10 +61,9 @@ class IndicateView: UIView {
 }
 
 protocol YiIndexDelegate {
+    var curIndexView: YiIndicateView { get }
     func indexChanged(newIndex: Int)
-    
-    var indicateViewList: [YiIndicateView] { get }
-    func updateIndex(_ index: Int, at level: Int)
+    func indexConfirmed(index: Int)
 }
 
 class YiIndexView: UIView {
@@ -149,7 +121,7 @@ class YiIndexView: UIView {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+        delegate.curIndexView.isHidden = true
     }
     
     func updateIndex(_ index: Int) {
@@ -159,8 +131,5 @@ class YiIndexView: UIView {
             delegate.indexChanged(newIndex: index)
         }
     }
-    
-    func changeLevel() {
-        print("changeLevel")
-    }
+
 }
