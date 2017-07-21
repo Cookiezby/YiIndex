@@ -34,30 +34,78 @@ class YiBlock: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
-class YiIndicateView: UIImageView {
+class YiHUDView: UIImageView {
     
-    let label: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor.white
-        return label
+    let dot: CALayer = {
+        let layer = CALayer()
+        layer.cornerRadius = 3
+        layer.backgroundColor = UIColor.white.cgColor
+        return layer
     }()
+    
+    var labelList:[UILabel]!
+    var labelSize:CGSize!
+    var max: Int = 3
+    var index = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        label.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 60)
-        addSubview(label)
-        image = UIImage(named: "circleBG")
-        contentMode = .scaleToFill
+        labelSize = frame.size
+        clipsToBounds = true
+        backgroundColor = UIColor(white: 0.0, alpha: 0.5)
+        layer.cornerRadius =  5
+        labelList = [UILabel]()
+        
+        for i in 0 ..< max {
+            let label = createLabel()
+            addSubview(label)
+            label.frame = CGRect(x: CGFloat(i) * labelSize.width, y: 0, width: labelSize.width, height: labelSize.height)
+            labelList.append(label)
+        }
+        
+        layer.addSublayer(dot)
+        dot.frame = CGRect(x: labelSize.width / 2 - 3, y: labelSize.height - 10, width: 6, height: 6)
     }
     
-    override func layoutSubviews() {
-        label.frame = self.bounds
-        super.layoutSubviews()
+    func createLabel() -> UILabel {
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: labelSize.width, height: labelSize.height)
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.text = "-"
+        label.font = UIFont.systemFont(ofSize: 40)
+        return label
+    }
+    
+    func insertLabel() {
+        index += 1
+        guard index < max else {
+            return
+        }
+        UIView.animate(withDuration: 0.3, animations: {
+            self.frame = CGRect(x: 0, y: 0, width: self.labelSize.width * CGFloat(self.index + 1), height: self.frame.height)
+            self.center = self.superview!.center
+        }) { (finished) in
+            UIView.animate(withDuration: 0.5, animations: { 
+                self.dot.frame = self.dot.frame.offsetBy(dx: self.labelSize.width, dy: 0)
+            })
+        }
+    }
+    
+    func updateLabel(text: String){
+        labelList[index].text = text
+    }
+    
+    func resetHud() {
+        for label in labelList {
+            label.text = "-"
+        }
+        frame = CGRect(x: 0, y:0, width: labelSize.width, height: labelSize.height)
+        center = superview!.center
+        dot.frame = CGRect(x: labelSize.width / 2 - 3, y: labelSize.height - 10, width: 6, height: 6)
+        index = 0
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -66,7 +114,7 @@ class YiIndicateView: UIImageView {
 }
 
 protocol YiIndexDelegate {
-    var curIndexView: YiIndicateView { get }
+    var hudView: YiHUDView { get }
     func indexChanged(newIndex: Int)
     func indexConfirmed(index: Int)
 }
@@ -126,11 +174,13 @@ class YiIndexView: UIView {
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        delegate.curIndexView.isHidden = true
+        delegate.hudView.isHidden = true
+        delegate.hudView.resetHud()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        delegate.curIndexView.isHidden = true
+        delegate.hudView.isHidden = true
+        delegate.hudView.resetHud()
     }
     
     func updateIndex(_ index: Int) {
@@ -144,6 +194,7 @@ class YiIndexView: UIView {
                     checkLongPress!.cancel()
                 }
             }
+            
             checkLongPress = DispatchWorkItem { [weak self] _ in
                 self?.confimCurIndex(index)
             }
@@ -154,6 +205,11 @@ class YiIndexView: UIView {
     
     func confimCurIndex(_ index: Int) {
         delegate.indexConfirmed(index: index)
+//        if checkLongPress != nil {
+//            if !checkLongPress!.isCancelled {
+//                checkLongPress!.cancel()
+//            }
+//        }
     }
 
 }

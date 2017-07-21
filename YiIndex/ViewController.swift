@@ -51,10 +51,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return strList
     }()
     
-    var confirmedIndexList = [YiIndicateView]()
-    
-    var curIndexView: YiIndicateView = {
-        let view = YiIndicateView(frame: CGRect(x: 0, y: 0, width: 100 , height: 100))
+    var hudView: YiHUDView = {
+        let view = YiHUDView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
         view.isHidden = true
         return view
     }()
@@ -72,10 +70,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         sideBar = YiIndexView(frame: CGRect(x: view.frame.width - 15.0, y: 0, width: 15, height: view.frame.height))
         sideBar.delegate = self
         view.addSubview(sideBar)
-        
-        
-        view.addSubview(curIndexView)
-        curIndexView.center = view.center
+     
+        view.addSubview(hudView)
+        hudView.center = view.center
         
     }
     
@@ -88,13 +85,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 extension ViewController: YiIndexDelegate {
     
     func indexChanged(newIndex: Int) {
-        curIndexView.isHidden = false
-        curIndexView.label.text = String(UnicodeScalar(UInt8(64 + newIndex)))
-        tableView.scrollToRow(at: IndexPath(row: 0, section: newIndex - 1), at: .top, animated: false)
+        hudView.isHidden = false
+        hudView.updateLabel(text: String(UnicodeScalar(UInt8(64 + newIndex))))
     }
     
     func indexConfirmed(index: Int) {
-        
+        hudView.insertLabel()
     }
 }
 
