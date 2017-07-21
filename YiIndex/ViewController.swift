@@ -36,7 +36,7 @@ class CustomSectionHeader: UIView {
     }
 }
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, YiIndexProtocol{
     
     var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -67,13 +67,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
-        sideBar = YiIndexView(frame: CGRect(x: view.frame.width - 15.0, y: 0, width: 15, height: view.frame.height))
+        sideBar = YiIndexView(frame: CGRect(x: view.frame.width - 15.0, y: 64, width: 15, height: view.frame.height - 64))
         sideBar.delegate = self
         view.addSubview(sideBar)
      
         view.addSubview(hudView)
         hudView.center = view.center
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -82,17 +81,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 }
 
-extension ViewController: YiIndexDelegate {
-    
-    func indexChanged(newIndex: Int) {
-        hudView.isHidden = false
-        hudView.updateLabel(text: String(UnicodeScalar(UInt8(64 + newIndex))))
-    }
-    
-    func indexConfirmed(index: Int) {
-        hudView.insertLabel()
-    }
-}
 
 extension ViewController {
     // MARK: UITableViewDataSource

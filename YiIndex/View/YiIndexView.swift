@@ -84,6 +84,7 @@ class YiHUDView: UIImageView {
             return
         }
         index += 1
+        labelList[index].text = labelList[index-1].text
         UIView.animate(withDuration: 0.3, animations: {
             self.frame = CGRect(x: 0, y: 0, width: self.labelSize.width * CGFloat(self.index + 1), height: self.frame.height)
             self.center = self.superview!.center
@@ -113,10 +114,21 @@ class YiHUDView: UIImageView {
     }
 }
 
-protocol YiIndexDelegate {
+protocol YiIndexProtocol {
     var hudView: YiHUDView { get }
     func indexChanged(newIndex: Int)
-    func indexConfirmed(index: Int)
+    func indexConfirmed()
+}
+
+extension YiIndexProtocol  {
+    func indexChanged(newIndex: Int) {
+        hudView.isHidden = false
+        hudView.updateLabel(text: String(UnicodeScalar(UInt8(64 + newIndex))))
+    }
+    
+    func indexConfirmed() {
+        hudView.insertLabel()
+    }
 }
 
 class YiIndexView: UIView {
@@ -124,7 +136,7 @@ class YiIndexView: UIView {
     var sideBlocks = [YiBlock]()
     var curIndex: Int = -1
     var curIndexList: [Int] = [0, 0, 0, 0]
-    var delegate: YiIndexDelegate!
+    var delegate: YiIndexProtocol!
     
     //  ForceFeedBack For iPhone7 & iPhone7 Plus
     let forceFeedBack: UISelectionFeedbackGenerator = {
@@ -138,7 +150,7 @@ class YiIndexView: UIView {
     let indexHeight: CGFloat = 26 * BLOCK_SIZE
     
     // check for long press
-    var longPressTimeInterval: CGFloat = 1.5
+    var longPressTimeInterval: CGFloat = 0.8
     var checkLongPress: DispatchWorkItem?
     
     override init(frame: CGRect) {
@@ -210,7 +222,7 @@ class YiIndexView: UIView {
     
     func confimCurIndex(_ index: Int) {
         if(index == curIndex) {
-            delegate.indexConfirmed(index: index)
+            delegate.indexConfirmed()
         }
     }
 
