@@ -80,10 +80,10 @@ class YiHUDView: UIImageView {
     }
     
     func insertLabel() {
-        index += 1
-        guard index < max else {
+        guard (index + 1) < max else {
             return
         }
+        index += 1
         UIView.animate(withDuration: 0.3, animations: {
             self.frame = CGRect(x: 0, y: 0, width: self.labelSize.width * CGFloat(self.index + 1), height: self.frame.height)
             self.center = self.superview!.center
@@ -176,11 +176,13 @@ class YiIndexView: UIView {
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         delegate.hudView.isHidden = true
         delegate.hudView.resetHud()
+        cancelLongPressCheck()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         delegate.hudView.isHidden = true
         delegate.hudView.resetHud()
+        cancelLongPressCheck()
     }
     
     func updateIndex(_ index: Int) {
@@ -189,12 +191,7 @@ class YiIndexView: UIView {
             forceFeedBack.selectionChanged()
             delegate.indexChanged(newIndex: index)
             
-            if checkLongPress != nil {
-                if !checkLongPress!.isCancelled {
-                    checkLongPress!.cancel()
-                }
-            }
-            
+            cancelLongPressCheck()
             checkLongPress = DispatchWorkItem { [weak self] _ in
                 self?.confimCurIndex(index)
             }
@@ -203,13 +200,18 @@ class YiIndexView: UIView {
         }
     }
     
+    func cancelLongPressCheck() {
+        if checkLongPress != nil {
+            if !checkLongPress!.isCancelled {
+                checkLongPress!.cancel()
+            }
+        }
+    }
+    
     func confimCurIndex(_ index: Int) {
-        delegate.indexConfirmed(index: index)
-//        if checkLongPress != nil {
-//            if !checkLongPress!.isCancelled {
-//                checkLongPress!.cancel()
-//            }
-//        }
+        if(index == curIndex) {
+            delegate.indexConfirmed(index: index)
+        }
     }
 
 }
