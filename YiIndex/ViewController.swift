@@ -73,6 +73,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
      
         view.addSubview(hudView)
         hudView.center = view.center
+        
+        let data = ["B磊","Cdfad","Asdfa", "ADgh", "Argy", "A","A","A"]
+        let methodStart = Date()
+        
+        let indexList = IndexUtil.mapStrToIndex(str: data, level: 3)
+        
+        let methodFinish = Date()
+        let executionTime = methodFinish.timeIntervalSince(methodStart)
+        print("Execution time: \(executionTime)")
+        
+       
     }
     
     override func didReceiveMemoryWarning() {

@@ -16,7 +16,6 @@ class StringUtil {
         }
         return result
     }
-    
     static func strToUppercaseLetters(str: String, level: Int) -> String {
         var transferedStr = ""
         let upperStr = str.uppercased()
