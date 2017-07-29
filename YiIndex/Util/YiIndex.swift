@@ -84,8 +84,9 @@ class TreeNode {
                     if (isLeaf) {
                         let result = children[i].sameCount
                         children[i].sameCount += 1
+                        children[i].childLeafCount += 1
                         children[i].updateChildLeafCount(1)
-                        child.childLeafCount += 1
+                        //child.childLeafCount += 1
                         return result
                     }
                     break
@@ -180,7 +181,7 @@ class YiIndexUtil {
                     }
                 }
 
-                
+
                 if (i < level - 1) {
                     _ = parent.addChild(node, isLeaf: false)
                 }else if ( i == level - 1) {
