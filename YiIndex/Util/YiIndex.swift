@@ -57,8 +57,8 @@ class TreeNode {
     var children: [TreeNode] = []
     
     var sameCount = 0
-    var totalCount = 0 // the amount of leaf under this node
-    var preCount = 0 // the amount of node on the left
+    var childLeafCount = 0 // the amount of leaf under this node
+    var preChildLeafCount = 0 // the amount of node on the left
     
     init(value: Character) {
         self.value = value
@@ -73,8 +73,8 @@ class TreeNode {
             if (isLeaf) {
                 let result = child.sameCount
                 child.sameCount += 1
-                child.updateTotalCount(1)
-                child.totalCount += 1
+                child.updateChildLeafCount(1)
+                child.childLeafCount += 1
                 return result
             }
             return nil
@@ -84,8 +84,8 @@ class TreeNode {
                     if (isLeaf) {
                         let result = children[i].sameCount
                         children[i].sameCount += 1
-                        children[i].updateTotalCount(1)
-                        child.totalCount += 1
+                        children[i].updateChildLeafCount(1)
+                        child.childLeafCount += 1
                         return result
                     }
                     break
@@ -95,8 +95,8 @@ class TreeNode {
                     if (isLeaf) {
                         let result = child.sameCount
                         child.sameCount += 1
-                        child.updateTotalCount(1)
-                        child.totalCount += 1
+                        child.updateChildLeafCount(1)
+                        child.childLeafCount += 1
                         return result
                     }
                     break
@@ -106,8 +106,8 @@ class TreeNode {
                     if (isLeaf){
                         let result = child.sameCount
                         child.sameCount += 1
-                        child.updateTotalCount(1)
-                        child.totalCount += 1
+                        child.updateChildLeafCount(1)
+                        child.childLeafCount += 1
                         return result
                     }
                     break
@@ -123,7 +123,7 @@ class TreeNode {
         if (children.count > 1) {
             for i in 0 ..< children.count {
                 if (child.uniValue == children[i].uniValue) {
-                    children[i].updateTotalCount(-1)
+                    children[i].updateChildLeafCount(-1)
                     children.remove(at: i)
                     break
                 }
@@ -142,18 +142,18 @@ class TreeNode {
     }
     
     
-    // from the child node, update the totalCount until the root of tree
-    func updateTotalCount(_ value: Int) {
+    // from the child node, update the childLeafCount until the root of tree
+    func updateChildLeafCount(_ value: Int) {
         guard partent != nil else{
             return
         }
-        partent?.totalCount += value
-        partent?.updateTotalCount(value)
+        partent?.childLeafCount += value
+        partent?.updateChildLeafCount(value)
     }
 }
 
 class YiIndexUtil {
-    // TotalCount is the amount of all leaf before current node
+    // childLeafCount is the amount of all leaf before current node
     static func createTree(data: [String]) -> (tree: TreeNode?, sameIndex: [Int]?) {
         guard data.count > 0 else {
             return (nil, nil)
@@ -247,23 +247,22 @@ class YiIndexUtil {
 //    }
     
     
-    // update the totalCount for the tree
-    // the totalCount means how many leafs do this node have
+    // update the childLeafCount for the tree
+    // the childLeafCount means how many leafs do this node have
     static func update(tree: TreeNode) {
         if (tree.children.count < 1) {
             return
         }
         for i in  1 ..< tree.children.count {
-            tree.children[i].preCount = tree.children[i-1].totalCount + tree.children[i-1].preCount
+            tree.children[i].preChildLeafCount = tree.children[i-1].childLeafCount + tree.children[i-1].preChildLeafCount
         }
-        
         for child in tree.children {
             update(tree: child)
         }
     }
     
     
-    // through the totalCount, we can transfer the tree to IndexPath
+    // through the childLeafCount, we can transfer the tree to IndexPath
     static func createIndex(tree: TreeNode, str: String, sameIndex: Int) -> IndexPath {
         var section = 0
         var row = 0
@@ -275,7 +274,7 @@ class YiIndexUtil {
                     if i == 0 {
                         section = childIndex
                     }else {
-                        row += root.children[childIndex].preCount
+                        row += root.children[childIndex].preChildLeafCount
                     }
                     root = root.children[childIndex]
                     break
