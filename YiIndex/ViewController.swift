@@ -74,16 +74,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         view.addSubview(hudView)
         hudView.center = view.center
         
-        let data = ["B磊","Cdfad","A","A","Asdfa","ASk", "ADgh", "Argy", "AE"]
+        var names = ["伴真礼","陈文静","陈奇","范立超","高西蒙","袁正雄","袁木子"]
+        let nameIndex = CNNameIndex(names: names)
         
-        
-        let yiIndex = YiIndex(originalStr: data, level: 3)
-        yiIndex.insert(str: "EFA")
-        yiIndex.delete(index: 2)
-        yiIndex.delete(index: 8)
-        
-        let tree = yiIndex.tree
-
+       
     }
     
     override func didReceiveMemoryWarning() {

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		763F7D281F2E2F080089F109 /* CNNameIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763F7D271F2E2F080089F109 /* CNNameIndex.swift */; };
+		763F7D2A1F2E34D10089F109 /* ENNameIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763F7D291F2E34D10089F109 /* ENNameIndex.swift */; };
 		764617B81F1E5BE000370B93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764617B71F1E5BE000370B93 /* AppDelegate.swift */; };
 		764617BA1F1E5BE000370B93 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764617B91F1E5BE000370B93 /* ViewController.swift */; };
 		764617BD1F1E5BE000370B93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764617BB1F1E5BE000370B93 /* Main.storyboard */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		763F7D271F2E2F080089F109 /* CNNameIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CNNameIndex.swift; path = Util/CNNameIndex.swift; sourceTree = "<group>"; };
+		763F7D291F2E34D10089F109 /* ENNameIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ENNameIndex.swift; path = Util/ENNameIndex.swift; sourceTree = "<group>"; };
 		764617B41F1E5BE000370B93 /* YiIndex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YiIndex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		764617B71F1E5BE000370B93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		764617B91F1E5BE000370B93 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 				765CA7981F22F8A900B30C46 /* YiHUDView.swift */,
 				765CA79A1F22F9A400B30C46 /* StringUtil.swift */,
 				764E7B121F24C80900010ED1 /* YiIndex.swift */,
+				763F7D271F2E2F080089F109 /* CNNameIndex.swift */,
+				763F7D291F2E34D10089F109 /* ENNameIndex.swift */,
 			);
 			path = YiIndex;
 			sourceTree = "<group>";
@@ -149,9 +155,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				763F7D2A1F2E34D10089F109 /* ENNameIndex.swift in Sources */,
 				764E7B131F24C80900010ED1 /* YiIndex.swift in Sources */,
 				765CA7991F22F8A900B30C46 /* YiHUDView.swift in Sources */,
 				764617BA1F1E5BE000370B93 /* ViewController.swift in Sources */,
+				763F7D281F2E2F080089F109 /* CNNameIndex.swift in Sources */,
 				765CA79B1F22F9A400B30C46 /* StringUtil.swift in Sources */,
 				764617CA1F1E5C3500370B93 /* YiIndexView.swift in Sources */,
 				764617B81F1E5BE000370B93 /* AppDelegate.swift in Sources */,
