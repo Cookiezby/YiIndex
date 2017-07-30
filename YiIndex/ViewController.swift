@@ -74,22 +74,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         view.addSubview(hudView)
         hudView.center = view.center
         
-        let data = ["B磊","Cdfad","Asdfa", "ADgh", "Argy", "A","A","A", "BLF"]
-        let methodStart = Date()
+        let data = ["B磊","Cdfad","A","A","Asdfa","ASk", "ADgh", "Argy", "AE"]
         
-        
-        let methodFinish = Date()
-        let executionTime = methodFinish.timeIntervalSince(methodStart)
-        print("Execution time: \(executionTime)")
         
         let yiIndex = YiIndex(originalStr: data, level: 3)
-        yiIndex.insert(str: "EF")
+        yiIndex.insert(str: "EFA")
+        yiIndex.delete(index: 2)
+        yiIndex.delete(index: 8)
         
+        let tree = yiIndex.tree
+
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
 }
 
