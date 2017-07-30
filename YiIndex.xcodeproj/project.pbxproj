@@ -15,7 +15,6 @@
 		764617BF1F1E5BE000370B93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 764617BE1F1E5BE000370B93 /* Assets.xcassets */; };
 		764617C21F1E5BE000370B93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764617C01F1E5BE000370B93 /* LaunchScreen.storyboard */; };
 		764617CA1F1E5C3500370B93 /* YiIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764617C91F1E5C3500370B93 /* YiIndexView.swift */; };
-		764E7B131F24C80900010ED1 /* YiIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764E7B121F24C80900010ED1 /* YiIndex.swift */; };
 		765CA7991F22F8A900B30C46 /* YiHUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765CA7981F22F8A900B30C46 /* YiHUDView.swift */; };
 		765CA79B1F22F9A400B30C46 /* StringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765CA79A1F22F9A400B30C46 /* StringUtil.swift */; };
 /* End PBXBuildFile section */
@@ -31,7 +30,6 @@
 		764617C11F1E5BE000370B93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		764617C31F1E5BE000370B93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		764617C91F1E5C3500370B93 /* YiIndexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YiIndexView.swift; path = View/YiIndexView.swift; sourceTree = "<group>"; };
-		764E7B121F24C80900010ED1 /* YiIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YiIndex.swift; path = Util/YiIndex.swift; sourceTree = "<group>"; };
 		765CA7981F22F8A900B30C46 /* YiHUDView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YiHUDView.swift; path = View/YiHUDView.swift; sourceTree = "<group>"; };
 		765CA79A1F22F9A400B30C46 /* StringUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringUtil.swift; path = Util/StringUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,7 +73,6 @@
 				764617C91F1E5C3500370B93 /* YiIndexView.swift */,
 				765CA7981F22F8A900B30C46 /* YiHUDView.swift */,
 				765CA79A1F22F9A400B30C46 /* StringUtil.swift */,
-				764E7B121F24C80900010ED1 /* YiIndex.swift */,
 				763F7D271F2E2F080089F109 /* CNNameIndex.swift */,
 				763F7D291F2E34D10089F109 /* ENNameIndex.swift */,
 			);
@@ -156,7 +153,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				763F7D2A1F2E34D10089F109 /* ENNameIndex.swift in Sources */,
-				764E7B131F24C80900010ED1 /* YiIndex.swift in Sources */,
 				765CA7991F22F8A900B30C46 /* YiHUDView.swift in Sources */,
 				764617BA1F1E5BE000370B93 /* ViewController.swift in Sources */,
 				763F7D281F2E2F080089F109 /* CNNameIndex.swift in Sources */,
