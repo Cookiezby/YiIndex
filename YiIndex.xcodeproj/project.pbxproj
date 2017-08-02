@@ -64,7 +64,6 @@
 		764617B61F1E5BE000370B93 /* YiIndex */ = {
 			isa = PBXGroup;
 			children = (
-				767246F31F320D9E007CB538 /* ChineseNameGen.swift */,
 				764617B71F1E5BE000370B93 /* AppDelegate.swift */,
 				764617B91F1E5BE000370B93 /* ViewController.swift */,
 				764617BB1F1E5BE000370B93 /* Main.storyboard */,
@@ -75,6 +74,7 @@
 				765CA7981F22F8A900B30C46 /* YiHUDView.swift */,
 				765CA79A1F22F9A400B30C46 /* StringUtil.swift */,
 				767246F11F320CF4007CB538 /* YiIndex.swift */,
+				767246F31F320D9E007CB538 /* ChineseNameGen.swift */,
 			);
 			path = YiIndex;
 			sourceTree = "<group>";

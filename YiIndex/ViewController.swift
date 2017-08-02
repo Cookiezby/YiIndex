@@ -81,7 +81,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             names.append(ChineseNameGen.randomName())
         }
         yiIndex = YiIndex(originalStr: names, level: 3)
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -108,9 +107,7 @@ extension ViewController {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeader = CustomSectionHeader(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height:25))
-        let firstData = yiIndex.dataSource[section][0]
-        let headerText = StringUtil.strToUppercaseLetters(str: firstData, level: 1)
-        sectionHeader.setLabel(text: headerText)
+        sectionHeader.setLabel(text: yiIndex.sectionHeader[section])
         return sectionHeader
     }
     

@@ -60,6 +60,12 @@ class YiIndex {
         dataSource = dataSource.filter({ (value) -> Bool in
             return value.count != 0
         })
+        
+        for section in dataSource {
+            let first = section[0]
+            let header = StringUtil.strToUppercaseLetters(str: first, level: 1)
+            sectionHeader.append(header)
+        }
     }
     
     func delete(index: Int) {
@@ -89,7 +95,19 @@ class YiIndex {
             indexList.append(index)
             let section = index.section
             dataSource[section].append("")
-            indexDict[originalStr[i]] = index
+            indexDict[processedStr[i]] = index
+            for j in 0 ..< level {
+                let startIndex = processedStr[i].startIndex
+                let endIndex = processedStr[i].index(startIndex, offsetBy: j)
+                let str = processedStr[i][startIndex ... endIndex]
+                if let currIndex = indexDict[str] {
+                    if (currIndex.row < index.row){
+                        indexDict[str] = currIndex
+                    }
+                }else{
+                    indexDict[str] = index
+                }
+            }
         }
     }
 }

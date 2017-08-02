@@ -9,18 +9,24 @@
 import Foundation
 import UIKit
 
-let BLOCK_SIZE: CGFloat =  18
+let BLOCK_SIZE: CGFloat =  20
 
 protocol YiIndexProtocol {
+    var yiIndex: YiIndex! { get }
+    var tableView: UITableView { get }
     var hudView: YiHUDView { get }
     func indexChanged(newIndex: Int)
     func indexConfirmed()
 }
 
 extension YiIndexProtocol  {
+    
     func indexChanged(newIndex: Int) {
         hudView.isHidden = false
         hudView.updateLabel(text: String(UnicodeScalar(UInt8(64 + newIndex))))
+        if let index = yiIndex.indexDict[hudView.currLabel] {
+            tableView.scrollToRow(at: index, at: .top, animated: false)
+        }
     }
     
     func indexConfirmed() {
@@ -97,13 +103,13 @@ class YiIndexView: UIView {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let point = touches.first?.location(in: self)
-        let index = Int(( (point?.y)! - topPadding) / BLOCK_SIZE)
+        let index = Int(( (point?.y)! - topPadding) / BLOCK_SIZE) + 1
         updateIndex(index)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let point = touches.first?.location(in: self)
-        let index = Int(( (point?.y)! - topPadding ) / BLOCK_SIZE)
+        let index = Int(( (point?.y)! - topPadding ) / BLOCK_SIZE) + 1
         updateIndex(index)
     }
     
@@ -146,9 +152,5 @@ class YiIndexView: UIView {
         if(index == curIndex) {
             delegate.indexConfirmed()
         }
-    }
-    
-    func generateLevelIndex(data: [String]) {
-        
     }
 }

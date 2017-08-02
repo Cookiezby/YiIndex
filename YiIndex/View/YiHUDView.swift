@@ -23,6 +23,20 @@ class YiHUDView: UIImageView {
     var max: Int = 3
     var index = 0
     
+    var currLabel: String {
+        get{
+            var str = ""
+            for label in labelList {
+                if (label.text == "-"){
+                    break
+                }else{
+                   str.append(label.text!)
+                }
+            }
+            return str
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         labelSize = frame.size
