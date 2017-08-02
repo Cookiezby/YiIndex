@@ -58,6 +58,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }()
     
     var sideBar: YiIndexView!
+    var yiIndex: YiIndex!
+    var names: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,38 +76,41 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         view.addSubview(hudView)
         hudView.center = view.center
         
-        var names = ["伴真礼","陈文静","陈奇","范立超","高西蒙","袁正雄","袁木子"]
-        let nameIndex = CNNameIndex(names: names)
+        names = [String]()
+        for _ in 0 ... 100 {
+            names.append(ChineseNameGen.randomName())
+        }
+        yiIndex = YiIndex(originalStr: names, level: 3)
         
-       
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
     }
 }
-
 
 extension ViewController {
     // MARK: UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 26
+        return yiIndex.dataSource.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return yiIndex.dataSource[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+        cell?.textLabel?.text = yiIndex.dataSource[indexPath.section][indexPath.row]
         return cell!
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeader = CustomSectionHeader(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height:25))
-        sectionHeader.setLabel(text: indexTitle[section])
+        let firstData = yiIndex.dataSource[section][0]
+        let headerText = StringUtil.strToUppercaseLetters(str: firstData, level: 1)
+        sectionHeader.setLabel(text: headerText)
         return sectionHeader
     }
     

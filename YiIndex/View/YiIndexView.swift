@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-let BLOCK_SIZE: CGFloat =  15
+let BLOCK_SIZE: CGFloat =  18
 
 protocol YiIndexProtocol {
     var hudView: YiHUDView { get }

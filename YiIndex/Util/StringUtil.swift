@@ -42,7 +42,29 @@ class StringUtil {
             for _ in 0 ..< (level - endIndex) {
                 transferedStr.append("A")
             }
+            
         }
         return transferedStr
     }
+    
+    static func isLeftLarger(_ lhs: String, _ rhs: String) -> Bool {
+        if (lhs.characters.count == 0 || rhs.characters.count == 0){
+            if lhs.characters.count >= rhs.characters.count {
+                return true
+            }else{
+                return false
+            }
+        }
+        let lFirst = lhs.unicodeScalars.first!
+        let rFirst = rhs.unicodeScalars.first!
+        
+        if (lFirst != rFirst) {
+            let l = StringUtil.strToUppercaseLetters(str: lhs, level: 1)
+            let r = StringUtil.strToUppercaseLetters(str: rhs, level: 1)
+            return l.unicodeScalars.first! > r.unicodeScalars.first!
+        }else{
+            return isLeftLarger(lhs.substring(from: lhs.index(after: lhs.startIndex)), rhs.substring(from: rhs.index(after: rhs.startIndex)))
+        }
+    }
 }
+

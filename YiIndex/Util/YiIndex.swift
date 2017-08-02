@@ -16,9 +16,16 @@ class YiIndex {
     var tree: TreeNode!
     var sameCountList: [Int]!
     var indexList: [IndexPath]!
-
-    var dataSource:[[String]]!
-
+    var indexDict: [String: IndexPath]!
+    var dataSource:[[String]] = {
+        var data = [[String]]()
+        for i in 0 ..< 26 {
+            data.append([String]())
+        }
+        return data
+    }()
+    
+    var sectionHeader = [String]()
     
     init(originalStr: [String], level:Int) {
         self.originalStr = originalStr
@@ -29,6 +36,7 @@ class YiIndex {
         YiIndexUtil.update(tree: tree)
         self.sameCountList = tempList!
         createIndexPath()
+        createDataSource()
     }
     
     func insert(str: String) {
@@ -42,7 +50,16 @@ class YiIndex {
     }
     
     func createDataSource() {
+        for i in 0 ..< indexList.count {
+            let index = indexList[i]
+            let section = index.section
+            let row = index.row
+            dataSource[section][row] = originalStr[i]
+        }
         
+        dataSource = dataSource.filter({ (value) -> Bool in
+            return value.count != 0
+        })
     }
     
     func delete(index: Int) {
@@ -65,9 +82,14 @@ class YiIndex {
     }
     
     func createIndexPath(){
-        self.indexList = [IndexPath]()
+        indexList = [IndexPath]()
+        indexDict = [String: IndexPath]()
         for i in 0 ..< originalStr.count {
-            indexList.append(YiIndexUtil.createIndex(tree: tree, str: processedStr[i], sameCount: sameCountList[i]))
+            let index = YiIndexUtil.createIndex(tree: tree, str: processedStr[i], sameCount: sameCountList[i])
+            indexList.append(index)
+            let section = index.section
+            dataSource[section].append("")
+            indexDict[originalStr[i]] = index
         }
     }
 }
@@ -219,8 +241,7 @@ class YiIndexUtil {
                         }
                     }
                 }
-
-
+                
                 if (i < level - 1) {
                     _ = parent.addChild(node, isLeaf: false)
                 }else if ( i == level - 1) {
