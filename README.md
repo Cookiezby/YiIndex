@@ -4,7 +4,18 @@
 
 </p>
 
-利用中文拼音进行通讯录的检索，所有的姓名都通过拼音来排序，所以和平常的通讯录不同，同一姓氏的名字可能不相邻，但他们肯定在一个Section中
+A new way for searching chinese name in addressbook, using the pinyin of the name to generate the index, and then you can search the name without typing any word.
 
 <img src="sample.gif" width="375" height="667" />
 
+
+## Usage
+
+```swift
+let tableView = YiView(frame: view.bounds, names: names, level:2)
+view.addSubview(tableView)
+```
+
+## License
+
+YiIndex is released under the MIT license. See LICENSE for details.
