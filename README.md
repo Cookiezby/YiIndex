@@ -1,6 +1,6 @@
-<p align="center">
+<p align="left">
 
-<img src="https://raw.githubusercontent.com/Cookiezby/YiIndex/master/images/logo@2x.png" alt="YiIndex" title="YiIndex" width="370"/>
+<img src="https://raw.githubusercontent.com/Cookiezby/YiIndex/master/images/logo@2x.png" alt="YiIndex" title="YiIndex" width="200"/>
 
 </p>
 
@@ -12,8 +12,12 @@ A new way for searching chinese name in addressbook, using the pinyin of the nam
 ## Usage
 
 ```swift
-let tableView = YiView(frame: view.bounds, names: names, level:2)
-view.addSubview(tableView)
+override func viewDidLoad() {
+    super.viewDidLoad()
+    // names: your name in addressbook
+    let yiView = YiView(frame: view.bounds, names: names, level:2)
+    view.addSubview(yiView)
+}
 ```
 
 ## License
