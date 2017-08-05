@@ -62,13 +62,12 @@ class YiView: UIView, UITableViewDelegate, UITableViewDataSource, YiIndexProtoco
         self.tableView = UITableView(frame: .zero, style: .plain)
         self.hudView = YiHudView(frame: CGRect(x: 0, y: 0, width: 60, height: 60), level: level)
         super.init(frame: frame)
-        yiIndex = YiIndex(originalStr: names, level: level)
+        yiIndex = YiIndex(originalStr: names, level: level+1)
         tableView.frame = bounds
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self
         addSubview(tableView)
-        
         
         sideBar = YiIndexView(frame: CGRect(x: frame.width - 15.0, y: 64, width: 15, height: frame.height - 64))
         sideBar.delegate = self
