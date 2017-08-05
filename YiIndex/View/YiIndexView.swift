@@ -14,7 +14,7 @@ let BLOCK_SIZE: CGFloat =  20
 protocol YiIndexProtocol {
     var yiIndex: YiIndex! { get }
     var tableView: UITableView { get }
-    var hudView: YiHUDView { get }
+    var hudView: YiHudView { get }
     func indexChanged(newIndex: Int)
     func indexConfirmed()
 }
@@ -28,7 +28,6 @@ extension YiIndexProtocol  {
             tableView.scrollToRow(at: index, at: .top, animated: false)
         }
     }
-    
     func indexConfirmed() {
         hudView.insertLabel()
     }

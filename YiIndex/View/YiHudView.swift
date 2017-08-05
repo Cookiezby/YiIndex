@@ -1,5 +1,5 @@
 //
-//  YiHUDView.swift
+//  YiHudView.swift
 //  YiIndex
 //
 //  Created by cookie on 22/07/2017.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class YiHUDView: UIImageView {
+class YiHudView: UIImageView {
     
     let dot: CALayer = {
         let layer = CALayer()
@@ -37,8 +37,9 @@ class YiHUDView: UIImageView {
         }
     }
     
-    override init(frame: CGRect) {
+   init(frame: CGRect, level: Int) {
         super.init(frame: frame)
+        max = level
         labelSize = frame.size
         clipsToBounds = true
         backgroundColor = UIColor(white: 0.0, alpha: 0.5)

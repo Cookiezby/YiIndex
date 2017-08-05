@@ -13,10 +13,11 @@
 		764617BF1F1E5BE000370B93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 764617BE1F1E5BE000370B93 /* Assets.xcassets */; };
 		764617C21F1E5BE000370B93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764617C01F1E5BE000370B93 /* LaunchScreen.storyboard */; };
 		764617CA1F1E5C3500370B93 /* YiIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764617C91F1E5C3500370B93 /* YiIndexView.swift */; };
-		765CA7991F22F8A900B30C46 /* YiHUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765CA7981F22F8A900B30C46 /* YiHUDView.swift */; };
+		765CA7991F22F8A900B30C46 /* YiHudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765CA7981F22F8A900B30C46 /* YiHudView.swift */; };
 		765CA79B1F22F9A400B30C46 /* StringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765CA79A1F22F9A400B30C46 /* StringUtil.swift */; };
 		767246F21F320CF4007CB538 /* YiIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767246F11F320CF4007CB538 /* YiIndex.swift */; };
 		767246F41F320D9E007CB538 /* ChineseNameGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767246F31F320D9E007CB538 /* ChineseNameGen.swift */; };
+		76E863DA1F35B80C00925DE2 /* YiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E863D91F35B80C00925DE2 /* YiView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,10 +29,11 @@
 		764617C11F1E5BE000370B93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		764617C31F1E5BE000370B93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		764617C91F1E5C3500370B93 /* YiIndexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YiIndexView.swift; path = View/YiIndexView.swift; sourceTree = "<group>"; };
-		765CA7981F22F8A900B30C46 /* YiHUDView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YiHUDView.swift; path = View/YiHUDView.swift; sourceTree = "<group>"; };
+		765CA7981F22F8A900B30C46 /* YiHudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YiHudView.swift; path = View/YiHudView.swift; sourceTree = "<group>"; };
 		765CA79A1F22F9A400B30C46 /* StringUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringUtil.swift; path = Util/StringUtil.swift; sourceTree = "<group>"; };
 		767246F11F320CF4007CB538 /* YiIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YiIndex.swift; path = Util/YiIndex.swift; sourceTree = "<group>"; };
 		767246F31F320D9E007CB538 /* ChineseNameGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChineseNameGen.swift; path = Util/ChineseNameGen.swift; sourceTree = "<group>"; };
+		76E863D91F35B80C00925DE2 /* YiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YiView.swift; path = View/YiView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,13 +72,22 @@
 				764617C01F1E5BE000370B93 /* LaunchScreen.storyboard */,
 				764617BE1F1E5BE000370B93 /* Assets.xcassets */,
 				764617C31F1E5BE000370B93 /* Info.plist */,
+				76E863D91F35B80C00925DE2 /* YiView.swift */,
 				764617C91F1E5C3500370B93 /* YiIndexView.swift */,
-				765CA7981F22F8A900B30C46 /* YiHUDView.swift */,
-				765CA79A1F22F9A400B30C46 /* StringUtil.swift */,
+				765CA7981F22F8A900B30C46 /* YiHudView.swift */,
 				767246F11F320CF4007CB538 /* YiIndex.swift */,
-				767246F31F320D9E007CB538 /* ChineseNameGen.swift */,
+				76E863DB1F35B81800925DE2 /* Util */,
 			);
 			path = YiIndex;
+			sourceTree = "<group>";
+		};
+		76E863DB1F35B81800925DE2 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				765CA79A1F22F9A400B30C46 /* StringUtil.swift */,
+				767246F31F320D9E007CB538 /* ChineseNameGen.swift */,
+			);
+			name = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,7 +163,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				765CA7991F22F8A900B30C46 /* YiHUDView.swift in Sources */,
+				765CA7991F22F8A900B30C46 /* YiHudView.swift in Sources */,
+				76E863DA1F35B80C00925DE2 /* YiView.swift in Sources */,
 				764617BA1F1E5BE000370B93 /* ViewController.swift in Sources */,
 				765CA79B1F22F9A400B30C46 /* StringUtil.swift in Sources */,
 				767246F41F320D9E007CB538 /* ChineseNameGen.swift in Sources */,
