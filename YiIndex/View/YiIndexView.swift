@@ -64,8 +64,9 @@ class YiIndexView: UIView {
     var curIndex: Int = -1
     var curIndexList: [Int] = [0, 0, 0, 0]
     var delegate: YiIndexProtocol!
+    var blockSize: CGSize
     
-    //  forceFeedBack for iPhone7 & iPhone7 Plus
+    //  forceFeedBack for iPhone6s+ 
     let forceFeedBack: UISelectionFeedbackGenerator = {
         let feedBack = UISelectionFeedbackGenerator()
         feedBack.prepare()
@@ -73,15 +74,17 @@ class YiIndexView: UIView {
     }()
     
     // size
-    let topPadding: CGFloat!
-    let indexHeight: CGFloat = 26 * BLOCK_SIZE
+    let topPadding: CGFloat
+    let indexHeight: CGFloat
     
     // check for long press
     var longPressTimeInterval: CGFloat = 0.8
     var checkLongPress: DispatchWorkItem?
     
-    override init(frame: CGRect) {
-        topPadding = (frame.height - indexHeight) / 2
+   init(frame: CGRect, blockSize: CGSize) {
+        self.blockSize = blockSize
+        self.indexHeight = 26 * blockSize.height
+        self.topPadding = (frame.height - indexHeight) / 2
         super.init(frame: frame)
         initBlocks()
     }
@@ -89,7 +92,7 @@ class YiIndexView: UIView {
     func initBlocks() {
         let originY =  topPadding
         for i in 0...25 {
-            let block = YiBlock(frame: CGRect(x: frame.width - BLOCK_SIZE, y: originY! + CGFloat(i) * BLOCK_SIZE, width: BLOCK_SIZE, height: BLOCK_SIZE))
+            let block = YiBlock(frame: CGRect(x: frame.width - blockSize.width, y: originY + CGFloat(i) * blockSize.height, width: blockSize.width, height: blockSize.height))
             block.label.text = String(UnicodeScalar(UInt8(65 + i)))
             sideBlocks.append(block)
             addSubview(block)
@@ -102,13 +105,13 @@ class YiIndexView: UIView {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let point = touches.first?.location(in: self)
-        let index = Int(( (point?.y)! - topPadding) / BLOCK_SIZE) + 1
+        let index = Int(( (point?.y)! - topPadding) / blockSize.height) + 1
         updateIndex(index)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let point = touches.first?.location(in: self)
-        let index = Int(( (point?.y)! - topPadding ) / BLOCK_SIZE) + 1
+        let index = Int(( (point?.y)! - topPadding ) / blockSize.height) + 1
         updateIndex(index)
     }
     

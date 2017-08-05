@@ -69,7 +69,7 @@ class YiView: UIView, UITableViewDelegate, UITableViewDataSource, YiIndexProtoco
         tableView.dataSource = self
         addSubview(tableView)
         
-        sideBar = YiIndexView(frame: CGRect(x: frame.width - 15.0, y: 64, width: 15, height: frame.height - 64))
+        sideBar = YiIndexView(frame: CGRect(x: frame.width - 15.0, y: 64, width: 15, height: frame.height - 64), blockSize:CGSize(width: 18, height:18))
         sideBar.delegate = self
         addSubview(sideBar)
         
